@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFT Global Leaderboards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f1923;
+            color: #ece8e1;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-banner {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-banner h1 {
+            color: #c8aa6e;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .header-banner p {
+            color: #a09b8c;
+            font-size: 14px;
+            margin-top: 0;
+        }
+
+        .leaderboard-container {
+            width: 100%;
+            max-width: 850px;
+            background-color: #1e282d;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #2b373d;
+        }
+
+        th {
+            background-color: #111c22;
+            color: #a09b8c;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #2b373d;
+            transition: 0.2s;
+        }
+
+        .rank { font-weight: bold; color: #c8aa6e; }
+        .tier { font-weight: bold; color: #f2e3e5; text-shadow: 0 0 5px #00e5ff; }
+        .loading { text-align: center; padding: 20px; color: #a09b8c; }
+        .error { text-align: center; padding: 20px; color: #ff4e50; line-height: 1.5; }
+
+        .footer {
+            margin-top: 30px;
+            color: #5b6770;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-banner">
+        <h1>TFT Top Server</h1>
+        <p>Live Ranked Player Leaderboards</p>
+    </div>
+    
+    <div class="leaderboard-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Hạng</th>
+                    <th>Người Chơi</th>
+                    <th>Bậc</th>
+                    <th>LP (Điểm)</th>
+                    <th>Tỉ lệ thắng</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <tr>
+                    <td colspan="5" class="loading">Đang tải dữ liệu từ máy chủ Riot...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        Cộng đồng TFT • Chih1rooo
+    </div>
+
+    <!-- Gọi file script.js chứa logic xử lý -->
+    <script src="script.js"></script>
+</body>
+</html>
