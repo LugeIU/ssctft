@@ -23,9 +23,52 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Chào mừng bạn đến với trang web!</h1>
-        <p>Đây là trang web nhỏ dành cho mọi người truy cập xem thông tin.</p>
-    </div>
+    <script>
+    // 1. Dán đường link Cloudflare Worker của bạn vào đây
+    const CLOUDFLARE_WORKER_URL = "https://tft-proxy.nghiepdt2911.workers.dev/"; 
+
+    async function loadRealData() {
+        const tbody = document.getElementById('leaderboard-body');
+        
+        try {
+            // Gọi đến Proxy
+            const response = await fetch(CLOUDFLARE_WORKER_URL);
+            const data = await response.json();
+
+            // API Riot trả về danh sách nằm trong data.entries, nhưng nó không được sắp xếp sẵn
+            // Chúng ta cần sắp xếp người chơi theo số điểm LP giảm dần
+            let players = data.entries.sort((a, b) => b.leaguePoints - a.leaguePoints);
+
+            // Cắt lấy top 15 người đứng đầu cho web nhẹ nhàng
+            players = players.slice(0, 15);
+
+            tbody.innerHTML = ''; // Xóa chữ Đang tải...
+
+            // Render dữ liệu lên bảng
+            players.forEach((player, index) => {
+                // Tính tỉ lệ thắng: (Thắng / (Thắng + Thua)) * 100
+                const totalGames = player.wins + player.losses;
+                const winRate = ((player.wins / totalGames) * 100).toFixed(1) + "%";
+
+                const row = `
+                    <tr>
+                        <td class="rank">#${index + 1}</td>
+                        <td><strong>${player.summonerName}</strong></td>
+                        <td class="tier challenger">Thách Đấu</td>
+                        <td>${player.leaguePoints} LP</td>
+                        <td>${winRate} (${player.wins}W - ${player.losses}L)</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        } catch (error) {
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">Lỗi tải dữ liệu. Vui lòng thử lại sau.</td></tr>`;
+            console.error(error);
+        }
+    }
+
+    // Chạy hàm khi mở web
+    loadRealData();
+</script>
 </body>
 </html>
