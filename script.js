@@ -1,6 +1,6 @@
 // 1. QUAN TRỌNG: Hãy xóa link mẫu dưới đây và dán link Worker của bạn vào
 // Ví dụ: "https://tft-proxy.ten-cua-ban.workers.dev"
-const CLOUDFLARE_WORKER_URL = "https://tft-proxy.<ten-cua-ban>.workers.dev"; 
+const CLOUDFLARE_WORKER_URL = "https://tft-proxy.nghiepdt2911.workers.dev"; 
 
 async function loadRiotData() {
     const tbody = document.getElementById('leaderboard-body');
